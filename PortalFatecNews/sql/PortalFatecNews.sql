@@ -16,7 +16,7 @@ telefone VARCHAR(10) NOT NULL,
 celular VARCHAR(11) NOT NULL
 )
 
-
+--Testando inserção
 INSERT INTO Usuario VALUES
 ('c://algo.png','vitor','pinheiro','vsp@gmail.com','12/12/2012','Masculino','vsp123','vsp123','22222222','22222222')
 
@@ -24,5 +24,6 @@ INSERT INTO Usuario VALUES
 SELECT * FROM Usuario WHERE email like 'vsp@gmail.com'
 SELECT * FROM Usuario WHERE login like 'vsp@gmail.com'
 
+--Eliminando dados da tabela
 TRUNCATE TABLE Usuario
 
