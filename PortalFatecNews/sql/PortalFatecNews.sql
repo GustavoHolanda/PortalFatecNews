@@ -15,3 +15,14 @@ senha VARCHAR(50) NOT NULL,
 telefone VARCHAR(10) NOT NULL,
 celular VARCHAR(11) NOT NULL
 )
+
+
+INSERT INTO Usuario VALUES
+('c://algo.png','vitor','pinheiro','vsp@gmail.com','12/12/2012','Masculino','vsp123','vsp123','22222222','22222222')
+
+
+SELECT * FROM Usuario WHERE email like 'vsp@gmail.com'
+SELECT * FROM Usuario WHERE login like 'vsp@gmail.com'
+
+TRUNCATE TABLE Usuario
+

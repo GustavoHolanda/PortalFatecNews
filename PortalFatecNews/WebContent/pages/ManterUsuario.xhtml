@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- BOOTSTRAP -->
+	<h:outputStylesheet library="css" name="bootstrap.min.css">
+	</h:outputStylesheet>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+	<!-- BOOTSTRAP -->
+	<title>Novo Usuário</title>
+
+</h:head>
+<h:body>
+
+	
+	
+	
+	
+		<h:form id="formUser">
+		
+		<p:messages closable="true" autoUpdate="true" ></p:messages>
+		
+			<p:panel >
+			<h:panelGrid styleClass="table table-responsive bg-info" columns="1" >
+
+				 <h:panelGroup styleClass="form-group" layout="block">
+					<h:outputLabel styleClass="control-label col-xs-2" value="Avatar:"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-7">
+						<h:inputText id="avatar" styleClass="form-control" value="#{usuarioMB.usuarioAtual.avatar}"/>
+					</h:panelGroup>
+				</h:panelGroup> 
+				
+				<!-- único campo com tamanho aproximado ao do BD, depois configuramos, seja via col-xs-2(colunas do boots) ou style="width: px" -->
+				<h:panelGroup styleClass="form-group" layout="block">
+					<h:outputLabel styleClass="control-label col-xs-2" value="Nome:"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-5"  >
+						<h:inputText id="nome" maxlength="50"   styleClass="form-control" value="#{usuarioMB.usuarioAtual.nome}"
+						required="true" requiredMessage="*Preencha o campo Nome."/>
+					</h:panelGroup>	
+				</h:panelGroup>
+				
+				<h:panelGroup styleClass="form-group" layout="block">
+					<h:outputLabel styleClass="control-label col-xs-2" value="Sobrenome"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-7">
+						<h:inputText id="sobrenome" maxlength="100" styleClass="form-control" value="#{usuarioMB.usuarioAtual.sobrenome}"
+						required="true" requiredMessage="*Preencha o campo Sobrenome."/>
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup styleClass="form-group" layout="block">
+					<h:outputLabel styleClass="control-label col-xs-2" value="E-mail:"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-7">
+						<h:inputText id="email" maxlength="200" styleClass="form-control" value="#{usuarioMB.usuarioAtual.email}"
+						required="true" requiredMessage="*Preencha o campo E-mail."
+						validatorMessage="E-mail inválido">
+							    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							    </h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup styleClass="form-group" layout="block">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						value="Data de Nascimento:"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-7">
+						<p:calendar id="datanasc" locale="pt_BR" pattern="dd/MM/yyyy"
+							mask="true" maxlength="10" size="10"
+							value="#{usuarioMB.usuarioAtual.dataNascimento}"  required="true"
+							requiredMessage="*Preencha o campo Data de nascimento." />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup styleClass="form-group" layout="block">
+					<h:outputLabel styleClass="control-label col-xs-2" value="Sexo:"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-7">
+						<h:selectOneMenu id="sexo" styleClass="form-control" value="#{usuarioMB.usuarioAtual.sexo}">
+							<f:selectItem itemLabel="Masculino" itemValue="Masculino"/>
+							<f:selectItem itemLabel="Feminino" itemValue="Feminino"/>
+						</h:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup styleClass="form-group" layout="block">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						value="Login/Usuário:"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-7">
+						<h:inputText id="login" maxlength="50" styleClass="form-control" value="#{usuarioMB.usuarioAtual.login}"
+						required="true" requiredMessage="*Preencha o campo Login."/>
+					</h:panelGroup>
+				</h:panelGroup>
+				
+			<h:panelGroup styleClass="form-group" layout="block">
+					<h:outputLabel styleClass="control-label col-xs-2" name="senha"
+						value="Senha:"/>
+					<h:panelGroup styleClass="col-xs-7">
+						<h:inputSecret id="senha" styleClass="form-control"
+							name="password"
+							value="#{usuarioMB.usuarioAtual.senha}"
+							required="true" requiredMessage="*Preencha o campo Senha." maxlength="50"
+							type="password"/>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="confirmaSenha" value="Confirmar Senha:"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputSecret id="confirmaSenha" styleClass="form-control"
+							name="password" onblur="validaSenha();" required="true"
+							requiredMessage="*Preencha o campo Confirmar Senha." maxlength="50"
+							type="password"/>
+					</h:panelGroup>
+				</h:panelGroup>
+			
+			<!-- por hora estão sem mascara -->
+				<h:panelGroup styleClass="form-group" layout="block">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						value="Telefone:"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-7">
+						<h:inputText maxlength="10" styleClass="form-control" value="#{usuarioMB.usuarioAtual.telefone}"
+						required="true" requiredMessage="*Preencha o campo Telefone."></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup styleClass="form-group" layout="block">
+					<h:outputLabel styleClass="control-label col-xs-2" value="Celular:"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-7">
+						<h:inputText maxlength="11" styleClass="form-control" value="#{usuarioMB.usuarioAtual.celular}" 
+						required="true" requiredMessage="*Preencha o campo Celular."></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group text-center">
+					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 " >
+						<h:commandButton styleClass="btn btn-primary " value="Salvar" action="#{usuarioMB.cadastrar()}"></h:commandButton>
+						<f:ajax event="click" execute="@form" render="@form" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+			</h:panelGrid>
+		
+		<p:dataTable id="tabela" value="#{usuarioMB.usuarios}" var="usuario" rendered="#{not empty usuarioMB.usuarios}">
+		<p:column headerText="ID">
+			#{usuario.id}
+		</p:column>
+		<p:column headerText="avatar">
+			
+		</p:column>
+		<p:column headerText="Nome">
+			#{usuario.nome}
+		</p:column>
+		<p:column headerText="Sobrenome">
+			#{usuario.sobrenome}
+		</p:column>
+		<p:column headerText="E-mail">
+			#{usuario.email}
+		</p:column>
+		<p:column headerText="Data de Nascimento">
+			#{usuario.dataNascimento}
+		</p:column>
+		<p:column headerText="Sexo">
+			#{usuario.sexo}
+		</p:column>
+		<p:column headerText="Login">
+			#{usuario.login}
+		</p:column>
+		<p:column headerText="Senha">
+			#{usuario.senha}
+		</p:column>
+		<p:column headerText="Telefone">
+			#{usuario.telefone}
+		</p:column>
+		<p:column headerText="Celular">
+			#{usuario.celular}
+		</p:column>
+				<p:column headerText="Editar">
+					<h:commandButton
+						value="Editar">
+						<f:ajax event="click" execute="formUser" render="formUser" />
+					</h:commandButton>
+				</p:column>
+				<p:column headerText="Deletar">
+					<h:commandButton
+						value="Deletar">
+						<f:ajax event="click" execute="formUser" render="formUser" />
+					</h:commandButton>
+				</p:column>
+
+				<p:chart type="line" model="#{chartView.lineModel1}"
+					style="height:300px;" />
+			</p:dataTable>
+			</p:panel>
+			
+				
+		</h:form>
+
+	
+</h:body>
+
+<script>
+	PrimeFaces.locales['pt_BR'] = {
+		closeText : 'Fechar',
+		prevText : 'Anterior',
+		nextText : 'Próximo',
+		currentText : 'Começo',
+		monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+				'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro ',
+				'Dezembro' ],
+		monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul',
+				'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+		dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+				'Sexta', 'Sábado' ],
+		dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+		dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+		weekHeader : 'Semana',
+		firstDay : 0,
+		isRTL : false,
+		showMonthAfterYear : false,
+		yearSuffix : '',
+		timeOnlyTitle : 'Só Horas',
+		timeText : 'Tempo',
+		hourText : 'Hora',
+		minuteText : 'Minuto',
+		secondText : 'Segundo',
+		ampm : false,
+		month : 'Mês',
+		week : 'Semana',
+		day : 'Dia',
+		allDayText : 'Todo o Dia'
+	};
+	
+	function validaSenha() {
+		var senha = document.getElementById('formUser:senha').value;
+		var confirmaSenha = document
+				.getElementById('formUser:confirmaSenha').value;
+		if (senha != confirmaSenha) {
+			alert("Erro na confirmação da senha. Senhas diferentes.");
+		}
+	}
+</script>
+
+
+
+</html>
