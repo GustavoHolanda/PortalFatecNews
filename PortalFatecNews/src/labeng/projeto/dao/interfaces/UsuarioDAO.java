@@ -10,11 +10,11 @@ public interface UsuarioDAO {
 	public boolean verificaExistenciaEmail(String email) throws SQLException;
 	public boolean verificaExistenciaLogin(String login) throws SQLException;
 	
-	public void cadastrarUsuario(Usuario u) throws SQLException;
-	public List<Usuario> pesquisarUsuario(String nome) throws SQLException;
+	public int cadastrarUsuario(Usuario u) throws SQLException;
+	public Usuario pesquisarUsuario(int id) throws SQLException;
 	public List<Usuario> listarUsuarios() throws SQLException;
 	
 	public void excluirUsuario(int id) throws SQLException;
-	public void alterarUsuario(Usuario u, int id) throws SQLException;
+	public void alterarSenha(Usuario u, int id) throws SQLException;
 }
 
