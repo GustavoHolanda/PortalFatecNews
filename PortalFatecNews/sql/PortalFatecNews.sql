@@ -1,14 +1,15 @@
-CREATE DATABASE PortalFatecNews;
+--DROP DATABASE PortalFatecNews
+CREATE DATABASE PortalFatecNews
+GO
 USE PortalFatecNews;
-
+GO
 CREATE TABLE Usuario(
 id INT IDENTITY PRIMARY KEY,
 email VARCHAR(200) UNIQUE NOT NULL,
 login VARCHAR(50) UNIQUE NOT NULL,
 senha VARCHAR(50) NOT NULL
-
 )
-
+GO
 CREATE TABLE Leitor(
 id INT IDENTITY,
 idUsuario INT NOT NULL,
@@ -24,8 +25,7 @@ redeSocial VARCHAR(500)
 FOREIGN KEY (idUsuario) REFERENCES Usuario(id),
 PRIMARY KEY (id, idUsuario)
 )
-
-
+GO
 CREATE TABLE Escritor(
 id INT IDENTITY,
 idUsuario INT NOT NULL,
