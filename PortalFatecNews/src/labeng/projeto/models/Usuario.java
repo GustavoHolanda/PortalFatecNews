@@ -1,112 +1,53 @@
 package labeng.projeto.models;
 
-import java.io.Serializable;
-import java.util.Date;
+public class Usuario {
 
-public class Usuario implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4994838303178065173L;
-	private int id;
-	private String avatar;
-	private String nome;
-	private String sobrenome;
+	private long idUsuario;
 	private String email;
-	private Date dataNascimento;
-	private String sexo;
-	private String login;
-	private String senha;
-	private String celular;
-	private String telefone;
+	private String usuario;
+	private String password;
+	private String tipo;
+	
 
-	public int getId() {
-		return id;
+
+	public long getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getSobrenome() {
-		return sobrenome;
-	}
-
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public Date getDataNascimento() {
-		return dataNascimento;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getSexo() {
-		return sexo;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public String getCelular() {
-		return celular;
-	}
-
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }
