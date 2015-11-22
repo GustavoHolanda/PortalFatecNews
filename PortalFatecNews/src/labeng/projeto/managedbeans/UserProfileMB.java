@@ -12,30 +12,39 @@ import javax.faces.context.FacesContext;
 import labeng.projeto.dao.implementation.UserProfileDAOImpl;
 import labeng.projeto.dao.interfaces.UserProfileDAO;
 import labeng.projeto.models.Perfil;
+import labeng.projeto.models.Usuario;
 
 @ManagedBean
 @SessionScoped
 public class UserProfileMB implements Serializable {
 
 	private static final long serialVersionUID = 5639642367417917210L;
+	//
+	private Usuario usuarioAtual;
+	//
 	private Perfil perfilAtual;
 	private UserProfileDAO userProfileDAO;
 
 	// só para fins de teste
-	private List<Perfil> perfils;
+	private List<Perfil> perfis;
 
 	public UserProfileMB() throws SQLException {
+		//
+		usuarioAtual = new Usuario();
+		//
 		perfilAtual = new Perfil();
 		userProfileDAO = new UserProfileDAOImpl();
-
+		
+		
 		try {
-			setPerfils(userProfileDAO.listarUsuarios());
+			setPerfis(userProfileDAO.listarUsuarios());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public String cadastrar() {
+		perfilAtual.setUsuario(usuarioAtual);
 		try {
 			boolean existeEmail = userProfileDAO.verificaExistenciaEmail(perfilAtual.getUsuario().getEmail());
 			boolean existeLogin = userProfileDAO.verificaExistenciaLogin(perfilAtual.getUsuario().getUsuario());
@@ -47,7 +56,7 @@ public class UserProfileMB implements Serializable {
 			} else if (existeLogin) {
 				FacesContext fc = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Login já cadastrado, favor inserir outro login!", null);
+						"Usuário já cadastrado, favor inserir outro usuário!", null);
 				fc.addMessage("", msg);
 			} else {
 				userProfileDAO.criarPerfil(getPerfilAtual());
@@ -56,7 +65,11 @@ public class UserProfileMB implements Serializable {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário foi cadastrado com sucesso",
 						null);
 				fc.addMessage("", msg);
+				
+				setPerfis(userProfileDAO.listarUsuarios());
+				usuarioAtual = new Usuario();
 				perfilAtual = new Perfil();
+				
 			}
 
 		} catch (SQLException e) {
@@ -76,6 +89,20 @@ public class UserProfileMB implements Serializable {
 	public void setPerfilAtual(Perfil perfilAtual) {
 		this.perfilAtual = perfilAtual;
 	}
+	
+	
+
+	public Usuario getUsuarioAtual() {
+		return usuarioAtual;
+	}
+
+	public void setUsuarioAtual(Usuario usuarioAtual) {
+		this.usuarioAtual = usuarioAtual;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public UserProfileDAO getUserProfileDAO() {
 		return userProfileDAO;
@@ -85,12 +112,12 @@ public class UserProfileMB implements Serializable {
 		this.userProfileDAO = userProfileDAO;
 	}
 
-	public List<Perfil> getPerfils() {
-		return perfils;
+	public List<Perfil> getPerfis() {
+		return perfis;
 	}
 
-	public void setPerfils(List<Perfil> perfils) {
-		this.perfils = perfils;
+	public void setPerfis(List<Perfil> perfils) {
+		this.perfis = perfils;
 	}
 
 }

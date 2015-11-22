@@ -234,7 +234,7 @@ public class UserProfileDAOImpl implements UserProfileDAO, Serializable {
 	@Override
 	public List<Perfil> listarUsuarios() throws SQLException {
 		List<Perfil> lista = new ArrayList<Perfil>();
-		String sqlPesquisa = "SELECT u.idUsuario, u.email, u.senha, u.tipo,"
+		String sqlPesquisa = "SELECT u.idUsuario, u.email, u.usuario, u.senha, u.tipo,"
 				+ "p.idPerfil, p.avatar, p.nome, p.sobrenome, p.sexo," + "p.dataNascimento, p.celular, p.telefone,"
 				+ "p.redeSocial FROM Usuario u " + " INNER JOIN Perfil p " + " ON p.idUsuario = u.idUsuario";
 		PreparedStatement ps = connection.prepareStatement(sqlPesquisa);
@@ -244,6 +244,7 @@ public class UserProfileDAOImpl implements UserProfileDAO, Serializable {
 			Usuario u = new Usuario();
 			u.setIdUsuario(rs.getLong("idUsuario"));
 			u.setEmail(rs.getString("email"));
+			u.setUsuario(rs.getString("usuario"));
 			u.setPassword(rs.getString("senha"));
 			u.setTipo(rs.getString("tipo"));
 			Perfil p = new Perfil();
