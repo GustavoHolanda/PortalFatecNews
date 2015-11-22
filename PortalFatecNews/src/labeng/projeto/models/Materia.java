@@ -8,7 +8,7 @@ public class Materia {
 	private Perfil perfil;
 	private String titulo;
 	private String subtitulo;
-	private Date data;
+	private Date data = new Date();
 	private String imagem;
 	private String fonteImagem;
 	private String corpo;

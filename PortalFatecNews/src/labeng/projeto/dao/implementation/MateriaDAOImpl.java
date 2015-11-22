@@ -12,6 +12,7 @@ import java.util.List;
 import labeng.projeto.dao.generic.GenericDAO;
 import labeng.projeto.dao.interfaces.MateriaDAO;
 import labeng.projeto.models.Materia;
+import labeng.projeto.models.Usuario;
 
 public class MateriaDAOImpl implements MateriaDAO, Serializable {
 
@@ -113,5 +114,23 @@ public class MateriaDAOImpl implements MateriaDAO, Serializable {
 		ps.setLong(1, id);
 		ps.execute();
 		ps.close();
+	}
+
+	@Override
+	public boolean verificaExistenciaMateria(String materia) throws SQLException {
+		Materia m = new Materia();
+		List<Materia> listaMateria = new ArrayList<Materia>();
+		String sql = "SELECT * FROM Materia WHERE titulo = ?";
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setString(1, materia);
+		ResultSet rs = ps.executeQuery();
+		if (rs.next()) {
+			m.setTitulo("titulo");
+			listaMateria.add(m);
+			return true;
+		}
+		ps.close();
+		rs.close();
+		return false;
 	}
 }

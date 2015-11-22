@@ -90,7 +90,6 @@ public class UserProfileMB implements Serializable {
 		this.perfilAtual = perfilAtual;
 	}
 	
-	
 
 	public Usuario getUsuarioAtual() {
 		return usuarioAtual;

@@ -12,4 +12,5 @@ public interface MateriaDAO {
 	public List<Materia> pesquisaMateriaPorTitulo(String titulo) throws SQLException;
 	public List<Materia> listaMaterias() throws SQLException;
 	public void excluirMateria(long id) throws SQLException;
+	public boolean verificaExistenciaMateria(String materia) throws SQLException;
 }
