@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class Comentario {
 
-	private String idComentario;
+	private long idComentario;
 	private Materia materia;
 	private Perfil perfil;
 	private Date data;
 	private String corpo;
 
-	public String getIdComentario() {
+	public long getIdComentario() {
 		return idComentario;
 	}
 
-	public void setIdComentario(String idComentario) {
+	public void setIdComentario(long idComentario) {
 		this.idComentario = idComentario;
 	}
 
