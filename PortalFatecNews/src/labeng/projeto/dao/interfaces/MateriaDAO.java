@@ -9,7 +9,9 @@ public interface MateriaDAO {
 
 	public void novaMateria(Materia mat) throws SQLException;
 	public void alterarMateria(Materia mat, long id) throws SQLException;
+	public Materia carregaMateria(long id) throws SQLException;
 	public List<Materia> pesquisaMateriaPorTitulo(String titulo) throws SQLException;
+	public long pesquisaMateriaPorTituloReturnUm(String titulo) throws SQLException;
 	public List<Materia> listaMaterias() throws SQLException;
 	public void excluirMateria(long id) throws SQLException;
 	public boolean verificaExistenciaMateria(String materia) throws SQLException;

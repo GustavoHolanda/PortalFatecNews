@@ -7,7 +7,7 @@ public class Comentario {
 	private long idComentario;
 	private Materia materia;
 	private Perfil perfil;
-	private Date data;
+	private Date data = new Date();
 	private String corpo;
 
 	public long getIdComentario() {

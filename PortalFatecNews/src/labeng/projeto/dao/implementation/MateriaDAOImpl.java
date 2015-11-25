@@ -12,7 +12,6 @@ import java.util.List;
 import labeng.projeto.dao.generic.GenericDAO;
 import labeng.projeto.dao.interfaces.MateriaDAO;
 import labeng.projeto.models.Materia;
-import labeng.projeto.models.Usuario;
 
 public class MateriaDAOImpl implements MateriaDAO, Serializable {
 
@@ -63,7 +62,8 @@ public class MateriaDAOImpl implements MateriaDAO, Serializable {
 	@Override
 	public List<Materia> pesquisaMateriaPorTitulo(String titulo) throws SQLException {
 		List<Materia> lista = new ArrayList<Materia>();
-		String sql = "SELECT * FROM Materia WHERE titulo = ?";
+		System.out.println(titulo);
+		String sql = "SELECT * FROM Materia WHERE titulo LIKE ?";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		ps.setString(1, "%" + titulo + "%");
 		ResultSet rs = ps.executeQuery();
@@ -78,6 +78,7 @@ public class MateriaDAOImpl implements MateriaDAO, Serializable {
 			mat.setCorpo(rs.getString("corpo"));
 			mat.setFonteMateria(rs.getString("fonteMateria"));
 			lista.add(mat);
+			System.out.println(mat.getTitulo());
 		}
 		rs.close();
 		ps.close();
@@ -132,5 +133,57 @@ public class MateriaDAOImpl implements MateriaDAO, Serializable {
 		ps.close();
 		rs.close();
 		return false;
+	}
+
+	@Override
+	public Materia carregaMateria(long id) throws SQLException {
+		String sql = "SELECT * FROM Materia WHERE idMateria = ?";
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setLong(1, id);
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()){
+			Materia mat = new Materia();
+			mat.setIdMateria(rs.getLong("idMateria"));
+			mat.setTitulo(rs.getString("titulo"));
+			mat.setSubtitulo(rs.getString("subTitulo"));
+			mat.setImagem(rs.getString("imagem"));
+			mat.setFonteImagem(rs.getString("fonteImagem"));
+			mat.setData(rs.getDate("data"));
+			mat.setCorpo(rs.getString("corpo"));
+			mat.setFonteMateria(rs.getString("fonteMateria"));
+			rs.close();
+			ps.close();
+			return mat;
+		}
+		rs.close();
+		ps.close();
+		return null;
+	}
+
+	@Override
+	public long pesquisaMateriaPorTituloReturnUm(String titulo) throws SQLException {
+		System.out.println(titulo);
+		String sql = "SELECT * FROM Materia WHERE titulo LIKE ?";
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setString(1, titulo);
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()){
+			Materia mat = new Materia();
+			mat.setIdMateria(rs.getLong("idMateria"));
+			mat.setTitulo(rs.getString("titulo"));
+			mat.setSubtitulo(rs.getString("subTitulo"));
+			mat.setImagem(rs.getString("imagem"));
+			mat.setFonteImagem(rs.getString("fonteImagem"));
+			mat.setData(rs.getDate("data"));
+			mat.setCorpo(rs.getString("corpo"));
+			mat.setFonteMateria(rs.getString("fonteMateria"));
+			System.out.println(mat.getTitulo());
+			rs.close();
+			ps.close();
+			return mat.getIdMateria();
+		}
+		rs.close();
+		ps.close();
+		return 0;
 	}
 }
