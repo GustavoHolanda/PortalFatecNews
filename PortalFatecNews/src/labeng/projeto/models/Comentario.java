@@ -1,9 +1,14 @@
 package labeng.projeto.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Comentario {
+public class Comentario implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -631562225453181524L;
 	private long idComentario;
 	private Materia materia;
 	private Perfil perfil;

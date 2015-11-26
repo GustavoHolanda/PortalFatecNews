@@ -27,7 +27,7 @@ public class ComentarioMB {
 		comentarioDAO = new ComentarioDAOImpl();
 		MateriaMB mb = new MateriaMB();
 		try {
-			setListaComentario(comentarioDAO.listarComentariosPorMateria(mb.getMateriaAtual().getIdMateria()));
+			setListaComentario(comentarioDAO.listarComentariosPorMateria(1));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,7 +43,7 @@ public class ComentarioMB {
 			UserProfileMB upmb = new UserProfileMB();
 			p.setIdPerfil(upmb.getPerfilAtual().getIdPerfil());
 			*/
-			mb.setIdMateria(4);
+			mb.setIdMateria(1);
 			p.setIdPerfil(1);
 			comentarioAtual.setMateria(mb);
 			comentarioAtual.setPerfil(p);
@@ -51,6 +51,7 @@ public class ComentarioMB {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Comentário cadastrado com sucesso", null);
 			fc.addMessage("", msg);
 			comentarioDAO.novoComentario(comentarioAtual);
+			setListaComentario(comentarioDAO.listarComentariosPorMateria(1));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			FacesContext fc = FacesContext.getCurrentInstance();

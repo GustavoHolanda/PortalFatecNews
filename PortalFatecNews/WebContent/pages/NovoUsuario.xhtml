@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
@@ -16,6 +17,8 @@
 	<!-- BOOTSTRAP -->
 	<title>Novo Usuário</title>
 
+	<ui:include src="header.xhtml"></ui:include>
+	
 </h:head>
 <h:body>
 
@@ -32,7 +35,6 @@
 					<h:outputLabel styleClass="control-label col-xs-2" value="E-mail:"></h:outputLabel>
 					<h:panelGroup styleClass="col-xs-7">
 						<h:inputText id="email" maxlength="200" styleClass="form-control" value="#{userProfileMB.usuarioAtual.email}"
-						required="true" requiredMessage="*Preencha o campo E-mail."
 						validatorMessage="E-mail inválido">
 							    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 							    </h:inputText>
@@ -44,7 +46,7 @@
 						value="Usuário:"></h:outputLabel>
 					<h:panelGroup styleClass="col-xs-7">
 						<h:inputText id="usuario" maxlength="50" styleClass="form-control" value="#{userProfileMB.usuarioAtual.usuario}"
-						required="true" requiredMessage="*Preencha o campo Usuário."/>
+						/>
 					</h:panelGroup>
 				</h:panelGroup>
 				
@@ -55,7 +57,7 @@
 						<h:inputSecret id="senha" styleClass="form-control"
 							name="password"
 							value="#{userProfileMB.usuarioAtual.password}"
-							required="true" requiredMessage="*Preencha o campo Senha." maxlength="50"
+							 maxlength="50"
 							type="password"/>
 					</h:panelGroup>
 				</h:panelGroup>
@@ -63,10 +65,9 @@
 				<h:panelGroup styleClass="form-group">
 					<h:outputLabel styleClass="control-label col-xs-2"
 						name="confirmaSenha" value="Confirmar Senha:"></h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
+					<h:panelGroup styleClass="col-xs-7">
 						<h:inputSecret id="confirmaSenha" styleClass="form-control"
-							name="password" onblur="validaSenha();" required="true"
-							requiredMessage="*Preencha o campo Confirmar Senha." maxlength="50"
+							name="password" onblur="validaSenha();"  maxlength="50"
 							type="password"/>
 					</h:panelGroup>
 				</h:panelGroup>
@@ -95,7 +96,7 @@
 					<h:outputLabel styleClass="control-label col-xs-2" value="Nome:"></h:outputLabel>
 					<h:panelGroup styleClass="col-xs-5"  >
 						<h:inputText id="nome" maxlength="50"   styleClass="form-control" value="#{userProfileMB.perfilAtual.nome}"
-						required="true" requiredMessage="*Preencha o campo Nome."/>
+						/>
 					</h:panelGroup>	
 				</h:panelGroup>
 				
@@ -103,7 +104,7 @@
 					<h:outputLabel styleClass="control-label col-xs-2" value="Sobrenome"></h:outputLabel>
 					<h:panelGroup styleClass="col-xs-7">
 						<h:inputText id="sobrenome" maxlength="100" styleClass="form-control" value="#{userProfileMB.perfilAtual.sobrenome}"
-						required="true" requiredMessage="*Preencha o campo Sobrenome."/>
+						/>
 					</h:panelGroup>
 				</h:panelGroup>
 				
@@ -124,8 +125,7 @@
 					<h:panelGroup styleClass="col-xs-7">
 						<p:calendar id="datanasc" locale="pt_BR" pattern="dd/MM/yyyy"
 							mask="true" maxlength="10" size="10"
-							value="#{userProfileMB.perfilAtual.dataNascimento}"  required="true"
-							requiredMessage="*Preencha o campo Data de nascimento." />
+							value="#{userProfileMB.perfilAtual.dataNascimento}"   />
 					</h:panelGroup>
 				</h:panelGroup>			
 
@@ -134,7 +134,7 @@
 						value="Telefone:"></h:outputLabel>
 					<h:panelGroup styleClass="col-xs-7">
 						<h:inputText maxlength="10" styleClass="form-control" value="#{userProfileMB.perfilAtual.telefone}"
-						required="true" requiredMessage="*Preencha o campo Telefone."></h:inputText>
+						></h:inputText>
 					</h:panelGroup>
 				</h:panelGroup>
 				
@@ -142,7 +142,7 @@
 					<h:outputLabel styleClass="control-label col-xs-2" value="Celular:"></h:outputLabel>
 					<h:panelGroup styleClass="col-xs-7">
 						<h:inputText maxlength="11" styleClass="form-control" value="#{userProfileMB.perfilAtual.celular}" 
-						required="true" requiredMessage="*Preencha o campo Celular."></h:inputText>
+						></h:inputText>
 					</h:panelGroup>
 				</h:panelGroup>
 				
@@ -150,7 +150,7 @@
 					<h:outputLabel styleClass="control-label col-xs-2" value="Rede Social:"></h:outputLabel>
 					<h:panelGroup styleClass="col-xs-5"  >
 						<h:inputText id="redeSocial" maxlength="50"   styleClass="form-control" value="#{userProfileMB.perfilAtual.redeSocial}"
-						required="true" requiredMessage="*Preencha o campo RedeSocial."/>
+						/>
 					</h:panelGroup>	
 				</h:panelGroup>
 				
@@ -173,9 +173,6 @@
 		<p:column headerText="Usuário">
 			#{perfil.usuario.usuario}
 		</p:column>
-		<p:column headerText="Senha">
-			#{perfil.usuario.password}
-		</p:column>
 		<p:column headerText="Tipo">
 			#{perfil.usuario.tipo}
 		</p:column>
@@ -187,9 +184,6 @@
 		</p:column>
 		<p:column headerText="Sobrenome">
 			#{perfil.sobrenome}
-		</p:column>
-		<p:column headerText="Avatar">
-			#{perfil.avatar}
 		</p:column>
 		<p:column headerText="Sexo">
 			#{perfil.sexo}
@@ -205,16 +199,17 @@
 		<p:column headerText="Telefone">
 			#{perfil.telefone}
 		</p:column>
-		<p:column headerText="Rede Social">
-			#{perfil.redeSocial}
-		</p:column>
+		
+		
+		
 				<p:chart type="line" model="#{chartView.lineModel1}"
 					style="height:300px;" />
 			</p:dataTable>
 			</p:panel>
 			
 		</h:form>
-
+		
+		<ui:include src="footer.xhtml"></ui:include>
 </h:body>
 
 <script>

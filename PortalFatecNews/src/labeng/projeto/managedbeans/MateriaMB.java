@@ -3,14 +3,13 @@ package labeng.projeto.managedbeans;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.swing.JOptionPane;
 
 import labeng.projeto.dao.implementation.MateriaDAOImpl;
 import labeng.projeto.dao.interfaces.MateriaDAO;
@@ -30,13 +29,15 @@ public class MateriaMB implements Serializable {
 	public MateriaMB() {
 		materiaAtual = new Materia();
 		materiaDAO = new MateriaDAOImpl();
-		try {
+		/*try {
 			setMaterias(materiaDAO.listaMaterias());
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 	}
+	
+	
 
 	public void cadastrarMateria() {
 		try {
@@ -44,8 +45,8 @@ public class MateriaMB implements Serializable {
 			 * UserProfileMB up = new UserProfileMB(); Perfil p = new Perfil();
 			 * p.setIdPerfil(up.getPerfilAtual().getIdPerfil());
 			 */
-			boolean existeEmail = materiaDAO.verificaExistenciaMateria(materiaAtual.getTitulo());
-			if (existeEmail) {
+			boolean existeMateria = materiaDAO.verificaExistenciaMateria(materiaAtual.getTitulo());
+			if (existeMateria) {
 				FacesContext fc = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
 						"Uma matéria com esse título já cadastrada, favor inserir outro título!", null);
@@ -57,8 +58,11 @@ public class MateriaMB implements Serializable {
 				materiaDAO.novaMateria(materiaAtual);
 				FacesContext fc = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Materia foi cadastrada com sucesso",
+						
 						null);
 				fc.addMessage("", msg);
+				
+				materiaAtual = new Materia();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -79,7 +83,7 @@ public class MateriaMB implements Serializable {
 
 	public void carregaMateriasPorNome() {
 		try {
-			materiaAtual.setTitulo("b");
+			
 			// setMaterias(materiaDAO.pesquisaMateriaPorTitulo(materiaAtual.getTitulo()));
 			setMaterias(materiaDAO.pesquisaMateriaPorTitulo(materiaAtual.getTitulo()));
 			System.out.println(materias.size());
@@ -106,7 +110,7 @@ public class MateriaMB implements Serializable {
 		try {
 			materiaAtual.setTitulo(materia);
 			long retorno;
-			retorno = materiaDAO.pesquisaMateriaPorTituloReturnUm(materia);
+			retorno = materiaDAO.pesquisaMateriaPorTituloReturnUm(materiaAtual.getTitulo());
 			materiaAtual.setIdMateria(retorno);
 			FacesContext.getCurrentInstance().getExternalContext().redirect("Materias.xhtml");
 		} catch (IOException e) {
@@ -115,6 +119,18 @@ public class MateriaMB implements Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void chamarPesquisar(){
+		
+		try {
+			
+			FacesContext.getCurrentInstance().getExternalContext().redirect("Pesquisa.xhtml");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public Materia getMateriaAtual() {

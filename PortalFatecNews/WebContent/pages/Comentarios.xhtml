@@ -36,9 +36,7 @@
 					</h:panelGroup>
 				</h:panelGroup>
 			</h:panelGrid>
-		</h:form>
-	</p:panel>
-	<p:panel>
+	
 	<p:dataTable id="tabela" value="#{comentarioMB.listaComentario}" var="comentario" rendered="#{not empty comentarioMB.listaComentario}">
 		<p:column headerText="Comentários">
 			#{comentario.corpo}
@@ -46,7 +44,11 @@
 				<p:chart type="line" model="#{chartView.lineModel1}"
 					style="height:300px;" />
 			</p:dataTable>
+	
+	
+		</h:form>
 	</p:panel>
+	
 </h:body>
 
 </html>

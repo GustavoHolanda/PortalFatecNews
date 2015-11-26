@@ -1,9 +1,14 @@
 package labeng.projeto.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Materia {
+public class Materia implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7868343950466686866L;
 	private long idMateria;
 	private Perfil perfil;
 	private String titulo;

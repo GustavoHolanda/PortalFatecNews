@@ -1,9 +1,14 @@
 package labeng.projeto.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Perfil {
+public class Perfil implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8115521342812305697L;
 	private long idPerfil;
 	private String nome;
 	private String sobrenome;

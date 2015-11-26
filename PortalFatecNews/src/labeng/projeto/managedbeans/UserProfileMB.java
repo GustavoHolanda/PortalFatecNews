@@ -46,30 +46,84 @@ public class UserProfileMB implements Serializable {
 	public String cadastrar() {
 		perfilAtual.setUsuario(usuarioAtual);
 		try {
-			boolean existeEmail = userProfileDAO.verificaExistenciaEmail(perfilAtual.getUsuario().getEmail());
-			boolean existeLogin = userProfileDAO.verificaExistenciaLogin(perfilAtual.getUsuario().getUsuario());
-			if (existeEmail) {
+			
+			if(perfilAtual.getUsuario().getEmail().isEmpty()){
 				FacesContext fc = FacesContext.getCurrentInstance();
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"E-mail já cadastrado, favor inserir outro e-mail!", null);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Favor preencher o campo E-mail!", null);
 				fc.addMessage("", msg);
-			} else if (existeLogin) {
+			} else if(perfilAtual.getUsuario().getUsuario().isEmpty()){
 				FacesContext fc = FacesContext.getCurrentInstance();
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Usuário já cadastrado, favor inserir outro usuário!", null);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Favor preencher o campo Usuario!", null);
 				fc.addMessage("", msg);
-			} else {
-				userProfileDAO.criarPerfil(getPerfilAtual());
+			} else if(perfilAtual.getUsuario().getPassword().isEmpty()){
+				FacesContext fc = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Favor preencher o campo Senha!", null);
+				fc.addMessage("", msg);
+			} else if(perfilAtual.getAvatar().isEmpty()){
+				FacesContext fc = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Favor preencher o campo Avatar!", null);
+				fc.addMessage("", msg);
+			} else if(perfilAtual.getNome().isEmpty()){
+				FacesContext fc = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Favor preencher o campo Nome!", null);
+				fc.addMessage("", msg);
+			} else if(perfilAtual.getSobrenome().isEmpty()){
+				FacesContext fc = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Favor preencher o campo Sobrenome!", null);
+				fc.addMessage("", msg);
+			} else if(perfilAtual.getDataNascimento()== null){
+				FacesContext fc = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Favor preencher o campo data de nascimento!", null);
+				fc.addMessage("", msg);
+			} else if(perfilAtual.getTelefone().isEmpty()){
+				FacesContext fc = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Favor preencher o campo Telefone!", null);
+				fc.addMessage("", msg);
+			} else if(perfilAtual.getCelular().isEmpty()){
+				FacesContext fc = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Favor preencher o campo Celular!", null);
+				fc.addMessage("", msg);
+			} else if(perfilAtual.getRedeSocial().isEmpty()){
+				FacesContext fc = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Favor preencher o campo Rede Social!", null);
+				fc.addMessage("", msg);
+			} else{
+				
+				boolean existeEmail = userProfileDAO.verificaExistenciaEmail(perfilAtual.getUsuario().getEmail());
+				boolean existeLogin = userProfileDAO.verificaExistenciaLogin(perfilAtual.getUsuario().getUsuario());
+				if (existeEmail) {
+					FacesContext fc = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"E-mail já cadastrado, favor inserir outro e-mail!", null);
+					fc.addMessage("", msg);
+				} else if (existeLogin) {
+					FacesContext fc = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Usuário já cadastrado, favor inserir outro usuário!", null);
+					fc.addMessage("", msg);
+				} else {
+					userProfileDAO.criarPerfil(getPerfilAtual());
 
-				FacesContext fc = FacesContext.getCurrentInstance();
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário foi cadastrado com sucesso",
-						null);
-				fc.addMessage("", msg);
-				
-				setPerfis(userProfileDAO.listarUsuarios());
-				usuarioAtual = new Usuario();
-				perfilAtual = new Perfil();
-				
+					FacesContext fc = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário foi cadastrado com sucesso",
+							null);
+					fc.addMessage("", msg);
+					
+					setPerfis(userProfileDAO.listarUsuarios());
+					usuarioAtual = new Usuario();
+					perfilAtual = new Perfil();
+
+			}							
 			}
 
 		} catch (SQLException e) {
@@ -82,6 +136,22 @@ public class UserProfileMB implements Serializable {
 		return "";
 	}
 
+	public void excluir(Perfil perfil){
+		
+		try {
+			userProfileDAO.excluirPerfil(perfil.getUsuario().getIdUsuario());
+			setPerfis(userProfileDAO.listarUsuarios());
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário foi apagado com sucesso",
+					null);
+			fc.addMessage("", msg);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public Perfil getPerfilAtual() {
 		return perfilAtual;
 	}
